@@ -1,0 +1,1227 @@
+#Contenido del Menu. Asociarlo en 'MDNavigationDrawer'
+<ContentNavigationDrawer>:
+    orientation: 'vertical'
+    spacing: '8dp'
+    padding: '8dp'
+
+    AnchorLayout:
+        anchor_x: "left"
+        size_hint_y: None
+        height: avatar.height
+
+        Image:
+            id: avatar
+            size_hint: None, None
+            size: "56dp", "56dp"
+            source: "clip.png"
+
+    MDLabel:
+        text: "SIJap"
+        font_style: "Button"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    MDLabel:
+        text: "soportet@sijap.com"
+        font_style: "Caption"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    MDScrollView:
+
+        MDList:
+
+            OneLineIconListItem:
+                text: "Nueva Orden"
+
+                on_press:
+                    app.root.ids.nav_drawer.set_state("close")
+                    app.root.ids.screen_manager.current = "scr 1"
+                    app.root.ids.nueva_orden.get_data()
+                IconLeftWidget: 
+                    icon: 'receipt-text-plus'
+
+            OneLineIconListItem:
+                text: "Consulta Orden"
+
+                on_press:
+                    app.root.ids.nav_drawer.set_state("close")
+                    app.root.ids.screen_manager.current = "scr 2"
+                    app.root.ids.consulta_orden.get_data()
+                IconLeftWidget: 
+                    icon: 'receipt-text-check-outline'
+
+            OneLineIconListItem:
+                id: listitem_cuenta
+                text: "Cuenta"
+                
+                on_press:
+                    app.root.ids.nav_drawer.set_state("close")
+                    app.root.ids.screen_manager.current = "scr 3"
+                    app.root.ids.cuenta_user.get_data()
+                IconLeftWidget:
+                    icon: 'face-man-profile'
+
+            OneLineIconListItem:
+                id: listitem_transfer
+                text: "Transfer Data"
+                
+                on_press:
+                    app.root.ids.nav_drawer.set_state("close")
+                    app.root.ids.screen_manager.current = "scr 4"
+                    app.root.ids.transfer_data.file_manager_open()
+                    
+                IconLeftWidget:
+                    icon: 'swap-horizontal'
+
+            OneLineIconListItem:
+                text: "Salir"
+                
+                on_press:
+                    app.root.ids.nav_drawer.set_state("close")
+                    #app.stop
+                    app.root.ids.content_nav_drawer.stop()
+
+                IconLeftWidget:
+                    icon: 'exit-to-app'
+###
+#Definición para cuenta de usuario. Asociarlo en 'MDScreen name = scr 3'
+<CuentaUserScreen>:
+    orientation: 'vertical'
+
+    MDTopAppBar:
+        left_action_items: [['arrow-left', lambda x: app.root.ids.nav_drawer.set_state("open")]]
+        title: "Cuentas"
+
+    MDBottomNavigation:
+        id: bottom_nav_user
+        MDBottomNavigationItem:
+            name: 'screen 1'
+            text: 'Datos'
+            icon: 'account-plus-outline'
+            #badge_icon: "numeric-10"
+    
+            MDFloatLayout:
+                #size_hint_y: 0.3
+                #canvas:
+                #    Color: 
+                #        rgb: [0, 255, 0]
+                #    Rectangle:
+                #        pos: self.pos
+                #        size: self.size
+
+                MDTextField:
+                    id: text_name
+                    required: True
+                    helper_text_mode: "on_error"
+                    helper_text: "Ingrese nombre"
+                    hint_text: "Nombre"
+                    font_size: 35
+                    icon_left: "account-tie"
+                    size_hint_x: .6
+                    pos_hint: {'center_x': 0.5, 'center_y':  0.9}
+
+                MDLabel:
+                    id: label_location
+                    text: 'Ubicación'
+                    halign: "center"
+                    pos_hint: {'center_x': 0.34, "center_y": 0.8}
+
+                MDDropDownItem:
+                    id: dropdown_location
+                    pos_hint: {'center_x': 0.65, 'center_y': 0.8}
+                    text: 'cdmx'
+                    on_release: root.menu_location.open()
+
+                MDTextField:
+                    id: text_email
+                    required: True
+                    helper_text_mode: "on_error"
+                    helper_text: "Ingrese correo electrónico"
+                    hint_text: "Correo electrónico"
+                    validator: "email"
+                    font_size: 35
+                    icon_left: "email-outline"
+                    size_hint_x: .6
+                    pos_hint: {'center_x': 0.5, 'center_y':  0.7}
+
+                MDLabel:
+                    id: label_categoria
+                    text: 'Categoria'
+                    halign: "center"
+                    pos_hint: {'center_x': 0.34, "center_y": 0.6}
+
+                MDDropDownItem:
+                    id: dropdown_categoria
+                    pos_hint: {'center_x': 0.65, 'center_y': 0.6}
+                    text: 'local'
+                    on_release: root.menu_categoria.open()
+
+                MDTextField:
+                    id: text_id
+                    required: True
+                    helper_text_mode: "on_error"
+                    helper_text: "Ingrese identificador"
+                    hint_text: "Id"
+                    font_size: 35
+                    icon_left: "identifier"
+                    size_hint_x: .3
+                    pos_hint: {'center_x': 0.35, 'center_y':  0.5}
+
+                MDLabel:
+                    id: label_manager
+                    text: 'Mg'
+                    halign: "center"
+                    pos_hint: {'center_x': 0.54, "center_y": 0.5}
+
+                MDDropDownItem:
+                    id: dropdown_manager
+                    pos_hint: {'center_x': 0.65, 'center_y': 0.5}
+                    text: 'No'
+                    on_release: root.menu_manager.open()
+                
+                MDTextField:
+                    id: text_user
+                    required: True
+                    helper_text_mode: "on_error"
+                    helper_text: "Ingrese usuario"
+                    hint_text: "Usuario"
+                    font_size: 35
+                    icon_left: "account"
+                    size_hint_x: .6
+                    pos_hint: {'center_x': 0.5, 'center_y':  0.4}
+            
+                MDTextField:
+                    id: text_password
+                    required: True
+                    helper_text_mode: "on_error"
+                    helper_text: "Ingrese password"
+                    hint_text: "Password"
+                    font_size: 35
+                    password: True
+                    icon_left: "key-variant"
+                    size_hint_x: .6
+                    pos_hint: {'center_x': 0.5, 'center_y':  0.3}
+
+                MDTextField:
+                    id: text_password2
+                    required: True
+                    helper_text_mode: "on_error"
+                    helper_text: "Ingrese confirmar password"
+                    hint_text: "Confirmar Password"
+                    font_size: 35
+                    password: True
+                    icon_left: "key-variant"
+                    size_hint_x: .6
+                    pos_hint: {'center_x': 0.5, 'center_y':  0.2}
+
+                MDIconButton:
+                    icon: "eye-off"
+                    ripple_scale: .5
+                    pos_hint: {'center_x': 0.78, "center_y": 0.3}
+                    pos: text_password.width - self.width + dp(8), 0
+                    theme_text_color: "Hint"
+                    on_release:
+                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                        text_password.password = False if text_password.password is True else True
+
+                MDLabel:
+                    id: label_password
+                    text: ''
+                    halign: "center"
+                    pos_hint: {'center_x': 0.5, "center_y": 0.14}
+
+            FloatLayout:
+                size_hint_y: 0.1
+                #canvas:
+                #    Color: 
+                #        rgb: [255, 0, 0]
+                #    Rectangle:
+                #        pos: self.pos
+                #        size: self.size
+                MDFillRoundFlatIconButton:
+                    id: bt_user
+                    icon: "access-point"
+                    text: "Enviar"
+                    text_color: "white"
+                    md_bg_color: "green"
+                    icon_color: 1, 1, 1, 1
+                    font_size: 35
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    on_release:
+                        x = root.check_password()
+                        root.send_data() if x == True else '' 
+                
+        MDBottomNavigationItem:
+            name: 'screen 2'
+            text: 'Lista'
+            icon: 'account-box-multiple-outline'
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                MDFloatLayout:
+                    padding: '8dp'
+                    spacing: '8dp'
+                    size_hint_y: .1
+                    MDRaisedButton:
+                        text: "Buscar Fecha"
+                        md_bg_color: "orange"
+                        pos_hint: {'center_x': .2, 'center_y': .5}
+                        on_release: root.show_date_picker()
+
+                    MDLabel:
+                        id: date_label
+                        text: "Desde - Hasta"
+                        font_style: "Body2"
+                        pos_hint: {'center_x': .98, 'center_y': .5}
+
+                GridLayout:
+                    id: header
+                    spacing: 2
+                    padding: [10,10,10,10]
+                    size_hint_y: None
+                    height: dp(28)
+
+                ScrollView:
+                    size_hint_y: 1       
+                    GridLayout:
+                        id: body
+                        spacing: 2
+                        padding: [10,10,10,10]
+                        size_hint_y: None
+                        #spacing: dp(2)
+                        height: self.minimum_height
+
+                #FloatLayout:
+                #    size_hint_y: 0.2
+
+                #    MDRectangleFlatIconButton:
+                #        icon: "access-point"
+                #        text: "Enviar"
+                #        text_color: "white"
+                #        md_bg_color: "green"
+                #        icon_color: 1, 1, 1, 1
+                #        pos_hint: {"center_x": .5, "center_y": .5}
+                #        on_release:
+                #            root.send_data()
+
+        MDBottomNavigationItem:
+            name: 'screen 3'
+            text: 'JS'
+            icon: 'language-javascript'
+
+            MDLabel:
+                text: 'JS'
+                halign: 'center'
+<AccionAccount>:
+    size_hint_y: None
+    size_hint_x: 1
+    #height: dp(28)
+    padding: [10,10,10,10]
+
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDIconButton:
+        id: pencil
+        icon: root.pencil
+        pos_hint_x: .2
+        on_release: app.root.ids.cuenta_user.set_cuenta(root.item)
+    
+    MDIconButton:
+        id: trash
+        icon: root.trash
+        pos_hint_x: .4
+        on_release: app.root.ids.cuenta_user.remove_cuenta(root.item)
+###
+#Asociarlo en 'MDScreen name = scr 4'
+<TransferDataScreen>:
+    orientation: 'vertical'
+
+    MDTopAppBar:
+        left_action_items: [['arrow-left', lambda x: app.root.ids.nav_drawer.set_state("open")]]
+        title: "Transfer data"
+
+    MDFloatLayout:
+
+        MDLabel:
+            id: label_data
+            text: ""
+            font_style: "Body1"
+            pos_hint: {"center_x": 0.7, "center_y": 0.5}
+
+        MDRectangleFlatIconButton:
+            icon: "swap-horizontal"
+            text: "Transfer data"
+            text_color: "white"
+            md_bg_color: "green"
+            icon_color: 1, 1, 1, 1
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            on_release:
+                root.transfer_data()
+
+
+###
+#Definición para Consultar Orden. Asociarlo en 'MDScreen name = scr 2'
+<ConsultaOrdenScreen>:
+    orientation: 'vertical'
+
+    MDTopAppBar:
+        left_action_items: [['arrow-left', lambda x: app.root.ids.nav_drawer.set_state("open")]]
+        title: "Consulta Orden"
+
+    MDBottomNavigation:
+        id: bottom_nav
+        MDBottomNavigationItem:
+            name: 'screen 1'
+            text: 'Lista'
+            icon: 'text-box-search-outline'
+            #badge_icon: "numeric-10"
+    
+            BoxLayout:
+                orientation: 'vertical'
+                MDFloatLayout:
+                    padding: '8dp'
+                    spacing: '8dp'
+                    size_hint_y: .1
+                    MDRaisedButton:
+                        text: "Buscar Fecha"
+                        md_bg_color: "orange"
+                        pos_hint: {'center_x': .2, 'center_y': .5}
+                        on_release: root.show_date_picker(0)
+
+                    MDLabel:
+                        id: date_label
+                        text: "Desde - Hasta"
+                        font_style: "Body2"
+                        pos_hint: {'center_x': .98, 'center_y': .5}
+
+                BoxLayout:
+                    id: data_table
+                    spacing: 2
+                    padding: [10,10,10,10]
+
+                MDFloatLayout:
+                    padding: '8dp'
+                    spacing: '8dp'
+                    size_hint_y: .1
+
+                    MDRectangleFlatIconButton:
+                        id: bottom_entrega
+                        icon: "clipboard-text-clock-outline"
+                        text: "Entrega"
+                        text_color: "white"
+                        line_color: 0, 0, 0, 0
+                        md_bg_color: "green"
+                        icon_color: 1, 1, 1, 1
+                        pos_hint: {"center_x": .3, "center_y": .5}
+                        on_release:
+                            root.show_date_picker(1)
+
+                    MDRectangleFlatIconButton:
+                        id: bottom_enviar
+                        icon: "access-point"
+                        text: "Enviar"
+                        text_color: "white"
+                        md_bg_color: "green"
+                        icon_color: 1, 1, 1, 1
+                        pos_hint: {"center_x": .7, "center_y": .5}
+                        on_release:
+                            root.send_data()
+                
+        MDBottomNavigationItem:
+            name: 'screen 2'
+            text: 'Productos'
+            icon: 'storefront-check'
+
+            BoxLayout:
+                orientation: 'vertical'
+                MDFloatLayout:
+                    size_hint_y: .1
+
+                    MDLabel:
+                        id: date_label_orden
+                        text: "Orden"
+                        font_style: "Body1"
+                        pos_hint: {'center_x': .98, 'center_y': .5}
+                        
+                BoxLayout:
+                    id: data_table_product_order
+                    spacing: 2
+                    padding: [10,10,10,10]                    
+
+                MDFloatLayout:
+                    size_hint_y: 0.2
+                    
+                    MDLabel:
+                        id: text_articulo
+                        hint_text: "#Articulos"
+                        size_hint: 0.3, None
+                        height: "30dp"
+                        pos_hint: {"center_x": .19, "center_y": .9}
+
+                    MDLabel:
+                        id: text_cantidad
+                        hint_text: "#Bultos"
+                        size_hint: 0.3, None
+                        height: "30dp"
+                        pos_hint: {"center_x": .37, "center_y": .9}
+
+                    MDLabel:
+                        id: text_importe
+                        hint_text: "Importe"
+                        size_hint: 0.3, None
+                        height: "30dp"
+                        pos_hint: {"center_x": .56, "center_y": .9}
+                        
+                    MDTextField:
+                        id: text_comment
+                        hint_text: "Comentarios"
+                        font_style: "Body1"
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+
+        MDBottomNavigationItem:
+            id: screen_3
+            name: 'screen 3'
+            text: 'Análisis'
+            icon: 'cable-data'
+            
+            BoxLayout:
+                orientation: 'vertical'
+                MDFloatLayout:
+                    padding: '8dp'
+                    spacing: '8dp'
+                    size_hint_y: .1
+                    MDRaisedButton:
+                        text: "Buscar FEntrega"
+                        md_bg_color: "orange"
+                        pos_hint: {'center_x': .2, 'center_y': .5}
+                        on_release: root.show_date_picker(2)
+
+                    MDLabel:
+                        id: date_label_entrega
+                        text: "Desde - Hasta"
+                        font_style: "Body2"
+                        pos_hint: {'center_x': .98, 'center_y': .5}
+
+                BoxLayout:
+                    id: data_table_entrega
+                    spacing: 2
+                    padding: [10,10,10,10]
+
+                MDFloatLayout:
+                    padding: '8dp'
+                    spacing: '8dp'
+                    size_hint_y: .1
+
+                    MDRectangleFlatIconButton:
+                        icon: "cable-data"
+                        text: "Extraer datos"
+                        text_color: "white"
+                        md_bg_color: "green"
+                        icon_color: 1, 1, 1, 1
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_release:
+                            root.file_manager_open()
+###
+
+#Definición para Nueva Orden, Uso de Tabs. Asociarlo en 'MDScreen name = scr 1'
+<NuevaOrdenScreen>:
+    orientation: "vertical"
+
+    MDTopAppBar:
+        left_action_items: [['arrow-left', lambda x: app.root.ids.nav_drawer.set_state("open")]]
+        title: "Nueva Orden"
+
+    MDTabs:
+        id: tabs
+
+        ProductoTab:
+            id: productotab
+            title: "Productos" 
+            icon: "storefront-check" #animation
+            #label_text: f"This is an example text for {self.title}"
+
+        #OrdenTab:
+        #    id: ordentab
+        #    text: "Ordenes"
+        #    title: "Carrito"
+        #    #top_label_text: f'This is a two label tab on tab {self.text}'
+        #    #bottom_label_text: f'The bottom label of {self.text}'
+        #    icon: "cart-outline"
+        
+        CardTab:
+            id: cardtab
+            title: "Carrito" 
+            icon: "cart-outline" #animation
+
+#Clase del RecycleView, en la clase ProductoTab
+<SelectableTwoLineAvatarListItem>:
+    ImageLeftWidget:
+        source: root.source
+#Tab productos, versión tarjeta
+<CardTab>:
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            adaptive_width:True
+            spacing: dp(5)
+            size_hint_y: 0.1
+
+            MDTextField:
+                id: text_comment
+                multiline: True
+                hint_text: "Comentarios"
+                halign:'left'
+                valign:'top'
+                
+        MDScrollView:
+            MDGridLayout:
+                id: gl
+                cols:2
+                padding:dp(10)
+                spacing:dp(5)
+                adaptive_height:True
+                ElementCard:
+                    id: element_card
+
+        BoxLayout:
+            adaptive_width:True
+            size_hint_y: 0.1
+            spacing: dp(5)
+
+            MDRectangleFlatIconButton:
+                id: button_enviar
+                icon: "email-check"
+                text: "Enviar"
+                text_color: "white"
+                md_bg_color: "green"
+                icon_color: 1, 1, 1, 1
+                halign:'center'
+                valign:'top'
+                on_release:
+                    root.send_data()
+
+            MDLabel:
+                id: text_articulo
+                font_style: "Caption"
+                halign:'center'
+                valign:'center'
+
+            MDLabel:
+                id: text_cantidad
+                font_style: "Caption"
+                halign:'center'
+                valign:'center'
+
+            MDLabel:
+                id: text_importe
+                font_style: "Caption"
+                halign:'center'
+                valign:'center'
+
+<ElementCard@MDCard>:
+    item_id: ''
+    image: ''
+    rate: ''
+    avg_rate: ''
+    price: ''
+    quantity: ''
+    name: ''
+    average_rating: ''
+    orientation:'vertical'
+    on_release: app.root.ids.nueva_orden.show_custom_bottom_sheet(root.item_id,root.image,root.price,root.rate, root.avg_rate, root.quantity, root.name, root.average_rating) if root.quantity else None
+    size_hint_x:.5
+    #elevation:1
+    size_hint_y:None
+    md_bg_color: app.theme_cls.primary_color
+    shadow_offset: (0, -1)
+    height:dp(220)
+    padding:dp(25)
+    spacing:dp(15)
+    radius:[25]
+    MDBoxLayout:
+        height:dp(120)
+        size_hint_y:None
+        Image:
+            source:root.image
+    
+    MDBoxLayout:
+        size_hint_y:None
+        height:dp(25)
+        MDIcon:
+            icon:'star-settings'
+            theme_text_color:'Custom'
+            text_color:1,1,0,1
+            halign:'center'
+            size_hint_x:.25
+            # width:dp(30)
+        MDLabel:
+            text:root.average_rating + '/5'
+    
+    MDLabel:
+        text:'Cantidad ' + root.quantity if root.quantity else ''
+        font_style:'Caption'
+
+    MDLabel:
+        text:'Precio ' + root.price
+        font_style:'Caption'
+    
+    MDLabel:
+        text:root.name[0:10]
+        font_style:'Caption'
+
+<ContentCustomSheet@MDBoxLayout>:
+    orientation: "vertical"
+    size_hint_y: None
+    height:dp(750)
+    item_id: ''
+    image: ''
+    rate: ''
+    avg_rate: ''
+    price: ''
+    quantity: ''
+    name: ''
+    ocultar: ''
+    item: None
+    average_rating: ''
+    padding:dp(12)
+    spacing:dp(6)
+    RelativeLayout:
+        ElementCard:
+            pos_hint: {"x":.05,"y":.5}
+            image: root.image
+            average_rating: root.average_rating
+            price: '$ ' + root.price
+
+    MDBoxLayout:
+        spacing:dp(5)
+        size_hint_y: 0.1
+        
+    MDLabel:
+        text: root.name
+        adaptive_height:True
+
+    MDBoxLayout:
+        spacing:dp(2)
+        Check:
+            id: check1
+            selected_color: 239,184,16,0
+            active: True if root.rate > '0' else False
+            unselected_color: 0,0,0,0
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            active: True if check2.active else False
+        Check:
+            id: check2
+            selected_color: 239,184,16,0
+            active: True if root.rate > '1' else False
+            unselected_color: 0,0,0,0
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            active: True if check3.active else False
+
+        Check:
+            id: check3
+            selected_color: 239,184,16,0
+            active: True if root.rate > '2' else False
+            unselected_color: 0,0,0,0
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            active: True if check4.active else False
+
+        Check:
+            id: check4
+            selected_color: 239,184,16,0
+            active: True if root.rate > '3' else False
+            unselected_color: 0,0,0,0
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            active: True if check5.active else False
+
+        Check:
+            id: check5
+            selected_color: 239,184,16,0
+            active: True if root.rate == '5' else False
+            unselected_color: 0,0,0,0
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+    MDLabel:
+        text:"Como calificarias éste producto"
+        adaptive_height:True
+
+    MDBoxLayout:
+        #adaptive_width:True
+        spacing: dp(5)
+       
+        MDIconButton:
+            icon:"minus"
+            #pos_hint:{"center_x":.5,"center_y":.5}
+            on_press: app.root.ids.nueva_orden.minus()
+            on_release: app.root.ids.nueva_orden.stopupdate()
+
+        MDLabel:
+            text: str(app.root.ids.nueva_orden.value)
+            halign:'center'
+            valign:'center'
+            #pos_hint:{"center_x":.5,"center_y":.5}
+
+        MDIconButton:
+            icon:'plus'
+            #pos_hint:{"center_x":.5,"center_y":.5}
+            on_press: app.root.ids.nueva_orden.plus()
+            on_release: app.root.ids.nueva_orden.stopupdate()    
+
+    MDBoxLayout:
+        spacing:dp(8)
+                
+        MDRoundFlatIconButton:
+            icon:"pencil"
+            text:"Actualizar"
+            text_color: "white"
+            md_bg_color: "green"
+            icon_color: 1, 1, 1, 1
+            size_hint_x:1
+            opacity: 0 if root.ocultar == '1' else 1
+            disabled: True if root.ocultar == '1' else False
+            on_release: app.root.ids.nueva_orden.update_producto_card(root.item_id, root.ids.check1.active, root.ids.check2.active, root.ids.check3.active, root.ids.check4.active, root.ids.check5.active)
+
+        MDRoundFlatIconButton:
+            icon:"trash-can"
+            text:"Eliminar"
+            text_color: "white"
+            md_bg_color: "green"
+            icon_color: 1, 1, 1, 1
+            size_hint_x:1
+            opacity: 0 if root.ocultar == '1' else 1
+            disabled: True if root.ocultar == '1' else False
+            on_release: app.root.ids.nueva_orden.remove_producto_card(root.item_id)
+            
+    MDRaisedButton:
+        icon:"cart-outline"
+        text:"Agregar carrito"
+        text_color: "white"
+        md_bg_color: "green"
+        icon_color: 1, 1, 1, 1
+        size_hint_x:1
+        pos_hint:{"center_x":.5,"center_y":.5}
+        opacity: 1 if root.ocultar == '1' else 0
+        disabled: False if root.ocultar == '1' else True
+        on_release: 
+            app.root.ids.nueva_orden.add_producto_card(root.item, app.root.ids.nueva_orden.value, root.ids.check1.active, root.ids.check2.active, root.ids.check3.active, root.ids.check4.active, root.ids.check5.active)
+
+
+<Check@MDCheckbox>:
+    checkbox_icon_normal: "star-settings"
+    checkbox_icon_down: "star-settings"
+    #radio_icon_normal:"checkbox-blank-circle"
+    size_hint: None, None
+    #size: dp(48), dp(48)
+###
+#Tab productos
+<ProductoTab>:
+    
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+
+        BoxLayout:
+            size_hint_y: None
+            height: self.minimum_height
+
+            MDIconButton:
+                icon: 'magnify'
+
+            MDTextField:
+                id: search_field
+                hint_text: 'Search icon'
+                on_text: root.set_list_products(self.text, True)
+
+        RecycleView:
+            id: rv
+            viewclass: 'SelectableTwoLineAvatarListItem'
+            SelectableRecycleBoxLayout:
+                padding: dp(10)
+                default_size: None, dp(48)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+    
+        #MDLabel:
+            #id: label
+            #text: root.top_label_text
+            #halign: "center"
+        #MDLabel:
+            #id: label
+            #text: root.bottom_label_text
+            #halign: "center"
+        
+        #MDIconButton:
+            #id: icon
+            #icon: root.icon
+            #icon_size: "48sp"
+            #pos_hint: {"center_x": .5, "center_y": .5}
+
+#Tab Orden
+<OrdenTab>:
+    orientation: 'vertical'
+
+    FloatLayout:
+        size_hint_y: 0.2
+
+        MDTextField:
+            id: text_comment
+            multiline: True
+            hint_text: "Comentarios"
+            size_hint: 0.5, None
+            height: "30dp"
+            pos_hint: {"center_x": .5, "center_y": .5}
+    
+    GridLayout:
+        id: header
+        spacing: 2 #spacing_horizontal, spacing_vertical
+        padding: [2,10,2,10] #padding_left, padding_top, padding_right, padding_bottom
+        size_hint_y: None
+        height: dp(28)
+
+    ScrollView:
+        size_hint_y: 1       
+        GridLayout:
+            id: body
+            spacing: 4
+            padding: [2,10,2,10]#2,150,2,250
+            size_hint_y: None
+            #spacing: dp(2)
+            height: self.minimum_height
+
+    FloatLayout:
+        size_hint_y: 0.1
+
+
+        MDLabel:
+            id: text_articulo
+            hint_text: "#Art."
+            size_hint: 0.3, None
+            height: "30dp"
+            pos_hint: {"center_x": .25, "center_y": .9}
+
+        MDLabel:
+            id: text_cantidad
+            hint_text: "#B"
+            size_hint: 0.3, None
+            height: "30dp"
+            pos_hint: {"center_x": .63, "center_y": .9}
+
+        MDLabel:
+            id: text_importe
+            hint_text: "Importe"
+            size_hint: 0.3, None
+            height: "30dp"
+            pos_hint: {"center_x": .82, "center_y": .9}
+
+    FloatLayout:
+        
+        size_hint_y: 0.4
+
+        #MDSpinner:
+        #    id: spinner
+        #    size_hint: None, None
+        #    size: dp(46), dp(46)
+        #    pos_hint: {'center_x': .5, 'center_y': .5}
+        #    active: False
+
+        MDRectangleFlatIconButton:
+            id: button_enviar
+            icon: "email-check"
+            text: "Enviar"
+            text_color: "white"
+            md_bg_color: "green"
+            icon_color: 1, 1, 1, 1
+            pos_hint: {"center_x": .5, "center_y": .3}
+            on_release:
+                root.send_data()
+                
+            #theme_text_color: "Custom"
+            #text_color: "white"
+            #line_color: "red"
+            #theme_icon_color: "Custom"
+            #icon_color: "orange"
+
+<Header>
+    size_hint_y: None
+    size_hint_x: header.size_hint_x
+    height: dp(28)
+    padding: [10,10,10,10]
+    
+    canvas.before:
+        Color:
+            rgba: app.theme_cls.primary_light
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    MDLabel:
+        halign: "center"
+        id: header
+        text: root.text
+        font_style: "Caption"
+
+<Cell>
+    size_hint_y: None
+    size_hint_x: cell.size_hint_x
+    #height: dp(28)
+    padding: [1,10,1,10]
+    #spacing: dp(500)
+
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    MDLabel:
+        halign: "center"
+        font_style: "Caption" #['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Subtitle1', 'Subtitle2', 'Body1', 'Body2', 'Button', 'Caption', 'Overline', 'Icon']
+        id: cell
+        text: root.text
+
+<Accion>:
+    size_hint_y: None
+    size_hint_x: 1
+    #height: dp(28)
+    padding: [1,10,1,10]
+
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDIconButton:
+        id: pencil
+        icon: root.pencil
+        pos_hint_x: .1
+        on_release: app.root.ids.nueva_orden.set_cantidad_emergente(root.item)
+    
+    MDIconButton:
+        id: trash
+        icon: root.trash
+        pos_hint_x: .17
+        on_release: app.root.ids.nueva_orden.remove_producto(root.item)
+
+###
+#Popop, ventana emergente del tab producto
+<CantidadPopup>:
+    id: pop_up
+    size_hint: .5, .4
+    auto_dismiss: False
+    title: root.item['descripcion']
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(30) 
+
+        MDTextFieldRect:
+            id: popUpTextField
+            text: root.item['cantidad'] if root.tarea == 1 else ''
+            focus: True
+            hint_text: "Ingrese la cantidad"
+            helper_text: "Ingrese la cantidad"
+            helper_text_mode: "on_focus"
+            input_filter: 'float'
+            multiline: False
+            #mode: "rectangle"
+
+        MDBoxLayout:
+            paddng: dp(5)
+            spacing: dp(5) 
+
+            MDRoundFlatButton:
+                id: send_text_field
+                text: "Ok"
+                font_size: 25
+                size_hint_x: .01
+                #pos_hint_x: .1
+                on_press:
+                    #app.root.ids.screen_manager.current = "scr 2"
+                    app.root.ids.nueva_orden.recibe_cantidad_emergente(root.item, popUpTextField.text, root.tarea)
+                on_release: root.dismiss()
+            
+            MDRoundFlatButton:
+                id: cancel_text_field
+                text: "Cancel"
+                font_size: 25
+                size_hint_x: .02
+                #pos_hint_x: .1
+                on_release: root.dismiss()
+###
+#Login Screen
+<LoginScreen>:
+    
+    orientation: 'vertical'
+    spacing: dp(12)
+    padding: dp(12)
+    canvas:
+        Color: 
+            rgb: [1, 1, 1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        orientation: 'vertical'
+
+        size_hint_y: 0.4
+        padding: dp(12)
+        spacing: dp(12)
+
+        #canvas:
+        #    Color: 
+        #        rgb: [0, 1, 1]
+        #    Rectangle:
+        #        pos: self.pos
+        #        size: self.size
+        
+        Image:
+            source: 'clip.png'
+            size_hint_y: None
+            height: dp(80)
+            pos_hint:{'center_x': .5, 'center_y': .5}
+
+        MDLabel:
+            text: 'Iniciar sesión'
+            halign: 'center'
+            pos_hint: {'center_x': .5, 'center_y': .1}
+            font_size: dp(20)
+
+    FloatLayout:
+        size_hint_y: 0.3
+        #canvas:
+        #    Color: 
+        #        rgb: [0, 255, 0]
+        #    Rectangle:
+        #        pos: self.pos
+        #        size: self.size
+
+        MDTextField:
+            id: text_usuario
+            hint_text: "Nombre de Usuario"
+            font_size: 45
+            icon_left: "account"
+            size_hint_x: .6
+            pos_hint: {'center_x': 0.5, 'center_y':  0.78}
+        
+        MDTextField:
+            id: text_password
+            hint_text: "Password"
+            font_size: 45
+            password: True
+            icon_left: "key-variant"
+            size_hint_x: .6
+            pos_hint: {'center_x': 0.5, 'center_y':  0.43}
+
+        MDIconButton:
+            icon: "eye-off"
+            ripple_scale: .5
+            pos_hint: {'center_x': 0.78,"center_y": 0.43}
+            pos: text_password.width - self.width + dp(8), 0
+            theme_text_color: "Hint"
+            on_release:
+                self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                text_password.password = False if text_password.password is True else True
+            
+        MDLabel:
+            id: label_login
+            text: root.text
+            halign: "center"
+            pos_hint: {'center_x': 0.5,"center_y": 0.2}
+
+    FloatLayout:
+        size_hint_y: 0.4
+        #canvas:
+        #    Color: 
+        #        rgb: [255, 0, 0]
+        #    Rectangle:
+        #        pos: self.pos
+        #        size: self.size
+        MDFillRoundFlatButton:
+            id: bt_login
+            text: "Inciar sesión"
+            font_size: 35
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            on_release:
+                x = root.login_data()
+                app.root.ids.main_screen_manager.transition.direction = 'left'
+                app.root.ids.main_screen_manager.current = 'dashboard_screen' if x == True else 'login_screen' 
+
+###
+#Menu Principal
+<Menu>:
+    
+    ScreenManager:
+        id: main_screen_manager
+        
+        MDScreen:
+            name: "login_screen"
+            
+            LoginScreen:
+                id: login_screen
+
+        MDScreen:
+            name: "dashboard_screen"
+
+            MDNavigationLayout:
+
+                ScreenManager:
+                    id: screen_manager
+                    
+                    MDScreen:
+                        name: "scr 0"
+                        BoxLayout:
+                            orientation: 'vertical'
+
+                            MDTopAppBar:
+                                title: "Customer shopping"
+                                elevation: 5
+                                left_action_items: [['menu', lambda x: nav_drawer.set_state(root.hide_menu_item())]]
+                                #right_action_items:[["magnify",lambda x:None]]
+
+                            Widget:
+
+                    MDScreen:
+                        name: "scr 1"
+
+                        NuevaOrdenScreen:
+                            id: nueva_orden
+
+                    MDScreen:
+                        name: "scr 2"
+
+                        ConsultaOrdenScreen:
+                            id: consulta_orden
+
+                        #MDLabel:
+                            #text: "Screen Ordeness"
+                            #halign: "center"
+
+                    MDScreen:
+                        name: "scr 3"
+
+                        CuentaUserScreen:
+                            id: cuenta_user
+
+                    MDScreen:
+                        name: "scr 4"
+
+                        TransferDataScreen:
+                            id: transfer_data
+
+                MDNavigationDrawer:
+                    id: nav_drawer
+
+                    ContentNavigationDrawer:
+                        id: content_nav_drawer
+                        screen_manager: screen_manager
+                        nav_drawer: nav_drawer

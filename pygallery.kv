@@ -1,0 +1,19 @@
+MDScreen:
+
+    MDSwiper:
+        id: swiper
+        size_hint: 1, .88
+        height: root.height
+        y: root.height - self.height + dp(12)
+
+    BoxLayout:
+        MDBottomAppBar:
+            MDTopAppBar:
+                id: bar
+                icon: "play"
+                type: "bottom"
+                left_action_items: [["folder-multiple-image", lambda a: app.file_manager_open()],["palette", lambda b: app.change_palette()],["invert-colors", lambda c: app.change_theme_style()],["rotate-left", lambda d: app.rotate("left")],["rotate-right", lambda e: app.rotate("right")],["magnify-plus", lambda f: app.zoom("plus")],["magnify-minus", lambda h: app.zoom("minus")],["arrow-left-bold-circle", lambda i: app.move_left()],["arrow-right-bold-circle", lambda j: app.move_right()]]
+                mode: 'end'
+                elevation: 50
+                on_action_button: app.play()
+    

@@ -1,0 +1,52 @@
+#:import utils kivy.utils
+#:import SmartTileWithLabel kivymd.uix.imagelist.SmartTileWithLabel
+#:import ScrollEffect kivy.effects.scroll.ScrollEffect
+#:import ScrollEffect kivy.effects.scroll.ScrollEffect
+#:import get_display bidi.algorithm.get_display
+#:import arabic_reshaper arabic_reshaper
+
+<ImageAndTitle>:
+    #produce the MDCard Material Icons
+    MDCard:
+        orientation: "vertical"
+        border_radius : "20dp"
+        radius : [10]
+        focus_behavior: False
+        elevation: 1
+        spacing: 10
+        padding: [0,20,0,20]
+        md_bg_color: utils.get_color_from_hex("#fcfcfc")
+        Image:
+            source: root.source
+            size_hint_y: self.size_hint_min_y
+        MDLabel:
+            text: root.title
+            halign: "center"
+            theme_text_color: "Primary"
+            font_style: "Subtitle1"
+
+<TestBox>:
+    #set and Arrange the Recycleview features
+    RecycleView:
+        #data: [{'source': [n]} for n in root.images]
+        #data : [{'source': [i], 'title': root.data_items(get_display(arabic_reshaper.reshape(n)))} for i,n in enumerate(root.images)]
+        #[
+'title': (get_display(arabic_reshaper.reshape(n)))} for n in root.txt ] 
+
+         above for loop is working for title and i can get text from DB my problem is with Blob Data
+
+        data : [ {'source': root.images2[i]} for i in range(7)]
+
+        id: rv
+        viewclass:'ImageAndTitle'
+        bar_width: 2
+        effect_cls: ScrollEffect
+        RecycleBoxLayout:
+            default_size: dp(170), dp(153)
+            default_size_hint: None, None
+            size_hint: None, None
+            width: self.minimum_width
+            height: self.minimum_height
+            orientation: 'horizontal'
+            padding: 9
+            spacing: 20
