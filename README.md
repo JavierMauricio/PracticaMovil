@@ -1,2 +1,2 @@
 # PracticaMovil
-![adulto]([images/adulto.png))
+![adulto](images/adulto.png)
